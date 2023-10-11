@@ -80,6 +80,20 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerGenOptions>();
 
+//Criando política personalizada pra permitir somente meu localhost ter acesso.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+        name: "MyPolicy",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:8080", "https://localhost:8080")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+        }
+     );
+});
+
 var key = Encoding.ASCII.GetBytes(PrimeiraAPI.Key.Secret);
 
 // Aplicando Autenticação JWT 
@@ -127,6 +141,8 @@ else
 {
     app.UseExceptionHandler("/error");
 }
+
+app.UseCors("MyPolicy");
 
 app.UseHttpsRedirection();
 
