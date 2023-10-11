@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PrimeiraAPI.Domain.Model;
-
+using PrimeiraAPI.Domain.Model.CompanyAggregate;
+using PrimeiraAPI.Domain.Model.EmployeeAggregate;
 
 namespace PrimeiraAPI.Infrastructure
 {
@@ -8,6 +8,7 @@ namespace PrimeiraAPI.Infrastructure
     {
        
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Company> Companies { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) 
             => optionsBuilder.UseSqlServer(

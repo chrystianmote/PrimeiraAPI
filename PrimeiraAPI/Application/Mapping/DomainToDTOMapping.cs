@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using PrimeiraAPI.Domain.DTOs;
-using PrimeiraAPI.Domain.Model;
+using PrimeiraAPI.Domain.Model.EmployeeAggregate;
 using System.IO.MemoryMappedFiles;
 
 namespace PrimeiraAPI.Application.Mapping

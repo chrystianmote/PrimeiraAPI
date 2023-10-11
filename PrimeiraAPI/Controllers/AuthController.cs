@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PrimeiraAPI.Application.Services;
+using PrimeiraAPI.Domain.Model.EmployeeAggregate;
 
 namespace PrimeiraAPI.Controllers
 {
@@ -13,7 +14,7 @@ namespace PrimeiraAPI.Controllers
             {
                 if (username == "Chrystian" && password == "123456")
                 {
-                    var token = TokenService.GenerateToken(new Domain.Model.Employee("",0,""));
+                    var token = TokenService.GenerateToken(new Employee("",0,""));
                     return Ok(token);
                 }
             }
