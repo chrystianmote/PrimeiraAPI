@@ -1,9 +1,14 @@
+using Asp.Versioning;
+using Asp.Versioning.ApiExplorer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PrimeiraAPI.Application.Mapping;
+using PrimeiraAPI.Application.Swagger;
 using PrimeiraAPI.Domain.Model.EmployeeAggregate;
 using PrimeiraAPI.Infrastructure.Repositories;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,9 +22,30 @@ builder.Services.AddAutoMapper(typeof(DomainToDTOMapping));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
+var apiVersioningBuilder = builder.Services.AddApiVersioning(o =>
+{
+    o.AssumeDefaultVersionWhenUnspecified = true;
+    o.DefaultApiVersion = new ApiVersion(1, 0);
+    o.ReportApiVersions = true;
+});
+
+
+apiVersioningBuilder.AddApiExplorer(setup =>
+{
+    // add the versioned api explorer, which also adds IApiVersionDescriptionProvider service
+    // note: the specified format code will format the version as "'v'major[.minor][-status]"
+    setup.GroupNameFormat = "'v'VVV";
+
+    // note: this option is only necessary when versioning by url segment. the SubstitutionFormat
+    // can also be used to control the format of the API version in route templates
+    setup.SubstituteApiVersionInUrl = true;
+});
+
 //Configurando o Swagger para usar a interface visual com o cabeçalho JWT 
 builder.Services.AddSwaggerGen(c =>
 {
+    c.OperationFilter<SwaggerDefaultValues>();
+
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -52,6 +78,7 @@ builder.Services.AddSwaggerGen(c =>
 
 // Injeção de dependencia ver: https://balta.io/blog/addtransient-addscoped-addsingleton
 builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerGenOptions>();
 
 var key = Encoding.ASCII.GetBytes(PrimeiraAPI.Key.Secret);
 
@@ -76,12 +103,25 @@ builder.Services.AddAuthentication(x =>
 
 var app = builder.Build();
 
+//Pegar a descrição da versão da API no Swagger
+var versionDescriptionProvider = app.Services
+    .GetRequiredService<IApiVersionDescriptionProvider>();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/error-development");
     app.UseSwagger();
-    app.UseSwaggerUI();
+
+    //alterna entre as versões no swagger no select do frontend
+    app.UseSwaggerUI(options =>
+    {
+        foreach (var description in versionDescriptionProvider.ApiVersionDescriptions)
+        {
+            options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
+                $"Primeira API - {description.GroupName.ToUpper()}");
+        }
+    });
 }
 else
 {

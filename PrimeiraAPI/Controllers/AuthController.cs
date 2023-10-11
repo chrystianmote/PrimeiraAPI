@@ -1,13 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Mvc;
 using PrimeiraAPI.Application.Services;
 using PrimeiraAPI.Domain.Model.EmployeeAggregate;
 
 namespace PrimeiraAPI.Controllers
 {
+
+
+    [ApiController]
+    [Route("api/v1/auth")]
     public class AuthController : Controller
     {
         [HttpPost]
-        [Route("api/v1/auth")]
         public IActionResult Auth(string username, string password)
         {
             if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))

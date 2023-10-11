@@ -1,9 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "a5QLNXVtgUu5tQdsD6VaUJZ+/VybB/EJOHO8uwwQFmb818v1+HtBo1JOze1jaeyBZ0KdAZcgPvixbKZj59Fs3Q==",
+  "dgSpecHash": "PWiebyrKIoF1j/Fb9SCJRnTyAmQ91EvpqDh39BcjPOYmVAgIq8gMuLlGO7mgZqFUfQ2h3vMPHK5lQ81fz3rhjg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Chrystian\\Visual Studio Project\\PrimeiraAPI\\PrimeiraAPI\\PrimeiraAPI.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Chrystian\\.nuget\\packages\\asp.versioning.abstractions\\7.0.0\\asp.versioning.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\Chrystian\\.nuget\\packages\\asp.versioning.http\\7.1.0\\asp.versioning.http.7.1.0.nupkg.sha512",
+    "C:\\Users\\Chrystian\\.nuget\\packages\\asp.versioning.mvc\\7.1.0\\asp.versioning.mvc.7.1.0.nupkg.sha512",
+    "C:\\Users\\Chrystian\\.nuget\\packages\\asp.versioning.mvc.apiexplorer\\7.1.0\\asp.versioning.mvc.apiexplorer.7.1.0.nupkg.sha512",
     "C:\\Users\\Chrystian\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Chrystian\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\Chrystian\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",

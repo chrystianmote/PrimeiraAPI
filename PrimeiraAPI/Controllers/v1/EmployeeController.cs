@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Asp.Versioning;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
@@ -6,11 +7,12 @@ using PrimeiraAPI.Application.ViewModel;
 using PrimeiraAPI.Domain.DTOs;
 using PrimeiraAPI.Domain.Model.EmployeeAggregate;
 
-namespace PrimeiraAPI.Controllers
+namespace PrimeiraAPI.Controllers.v1
 {
 
     [ApiController]
-    [Route("api/v1/employee")]
+    [Route("api/v{version:apiVersion}/employee")]
+    [ApiVersion("1.0")]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeRepository _employeeRepositary;
