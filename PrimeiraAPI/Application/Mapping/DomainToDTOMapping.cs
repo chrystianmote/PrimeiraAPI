@@ -12,7 +12,7 @@ namespace PrimeiraAPI.Application.Mapping
             CreateMap<Employee, EmployeeDTO>()
                 .ForMember(
                     dest => dest.NameEmployee,
-                    m => m.MapFrom(orig => orig.name)
+                    m => m.MapFrom(orig => orig.Name)
                 );
         }
     }

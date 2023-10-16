@@ -1,21 +1,31 @@
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PrimeiraAPI.Application.Mapping;
 using PrimeiraAPI.Application.Swagger;
 using PrimeiraAPI.Domain.Model.EmployeeAggregate;
+using PrimeiraAPI.Infrastructure;
 using PrimeiraAPI.Infrastructure.Repositories;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
 
+
 builder.Services.AddControllers();
+
+//Pegando os dados de configuração do Banco de Dados na Chave Secret  
+var connectionSring = builder.Configuration.GetConnectionString("cnDatabase");
+builder.Services.AddDbContext<ConnectionContext>(o => o.UseSqlServer(connectionSring));
+
+
 builder.Services.AddAutoMapper(typeof(DomainToDTOMapping));
 
 

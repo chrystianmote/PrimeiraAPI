@@ -6,7 +6,12 @@ namespace PrimeiraAPI.Infrastructure.Repositories
     public class EmployeeRepository : IEmployeeRepository
     {
 
-        private readonly ConnectionContext _context = new();
+        private readonly ConnectionContext _context;
+
+        public EmployeeRepository(ConnectionContext context)
+        {
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+        }
 
         //POST Cadastro
         void IEmployeeRepository.Add(Employee employee)
@@ -25,9 +30,9 @@ namespace PrimeiraAPI.Infrastructure.Repositories
                 .Take(pageQuantity)
                 .Select(b => new EmployeeDTO()
                 {
-                    Id = b.id,
-                    NameEmployee = b.name,
-                    Photo = b.photo
+                    Id = b.Id,
+                    NameEmployee = b.Name,
+                    Photo = b.Photo
 
                 })
                 .ToList();

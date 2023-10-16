@@ -84,7 +84,7 @@ namespace PrimeiraAPI.Controllers.v2
         public IActionResult DownloadPhoto(long id)
         {
             var employee = _employeeRepositary.Get(id);
-            var dataBytes = System.IO.File.ReadAllBytes(employee.photo);
+            var dataBytes = System.IO.File.ReadAllBytes(employee.Photo);
             return File(dataBytes, "image/jpg");
         }
 

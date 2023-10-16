@@ -17,7 +17,7 @@ namespace PrimeiraAPI.Application.Services
                 Subject = new ClaimsIdentity(
                 new Claim[]
                 {
-                    new Claim("employeeId", employee.id.ToString()),
+                    new Claim("employeeId", employee.Id.ToString()),
                 }),
                 Expires = DateTime.UtcNow.AddHours(3),
                 SigningCredentials = new SigningCredentials(
